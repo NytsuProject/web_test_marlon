@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Weavers</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+</head>
+<body>
+ <header class="header">
+  <div class="header-left">
+    <img src="media/guild_icon.png" alt="Guild Icon" class="guild-icon">
+    <h1> Tablero de Raids - The Weavers</h1>
+  </div>
+  <nav>
+    <a href="admin.html" class="nav-btn">Administración</a>
+  </nav>
+</header>
+
+
+  <main class="container">
+    <section id="board">
+      <!-- Aquí se inyectan las tarjetas de raid -->
+    </section>
+  </main>
+
+  <template id="raid-template">
+    <article class="raid-card">
+      <div class="raid-head">
+        <h2 class="raid-title"></h2>
+        <span class="raid-difficulty"></span>
+      </div>
+      <p class="raid-meta small"></p>
+      <p class="raid-desc"></p>
+
+      <div class="signup-area">
+        <button class="btn toggle-signup">Participar</button>
+        <form class="signup-form hidden">
+          <input name="player_name" placeholder="Nombre del personaje" required />
+          <select name="class" required></select>
+          <select name="role" required>
+            <option>Tank</option>
+            <option>Healer</option>
+            <option>DPS</option>
+          </select>
+          <input name="ilvl" type="number" placeholder="iLvl" required />
+          <button class="btn submit-signup" type="submit">Enviar</button>
+        </form>
+
+        <div class="public-signups">
+          <!-- Tabla pequeña de inscritos + conteos -->
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script type="module" src="index.js"></script>
+</body>
+</html>

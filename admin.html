@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Panel - Crear Raids</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<header class="header">
+  <div class="header-left">
+    <img src="media/guild_icon.png" alt="Guild Icon" class="guild-icon">
+    <h1>Panel de Registro (Admin)</h1>
+  </div>
+  <nav>
+    <button id="logout" class="btn">Cerrar sesión</button>
+    <a href="index.html" class="nav-btn">Volver al tablero</a>
+  </nav>
+</header>
+
+  <main class="container">
+     <p>Este es el panel se harán los respectivos registro de las raids para conocer los participantes que asistiran.</p>
+    <section id="login-section">
+      <h2>Iniciar sesión (admin)</h2>
+      <form id="login-form">
+        <input id="email" type="email" placeholder="Email" required />
+        <input id="password" type="password" placeholder="Contraseña" required />
+        <button class="btn" type="submit">Iniciar sesión</button>
+      </form>
+      <p class="small muted">Usa las credenciales proporcionadas por el administrador.</p>
+    </section>
+
+    <section id="admin-panel" class="hidden">
+      <h2>Crear nueva raid</h2>
+      <form id="create-form">
+        <input id="title" type="text" placeholder="Nombre de la raid" required />
+        <select id="difficulty"><option>Normal</option><option>Heroica</option><option>Mítica</option></select>
+        <textarea id="description" placeholder="Descripción (info extra)"></textarea>
+        <input id="date" type="datetime-local" required />
+        <button class="btn" type="submit">Publicar</button>
+      </form>
+
+      <h3 style="margin-top:18px">Raids publicadas</h3>
+      <div id="admin-raids"></div>
+      
+    </section>
+  </main>
+
+  <script type="module" src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,482 @@
+:root{
+  --bg:#0b0f13;
+  --panel:#0f1720;
+  --muted:#9aa4b2;
+  --accent:#d9b44a;
+  --accent-2:#7c3aed;
+  --card:#111827;
+}
+.raid-summary {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #ddd;
+}
+
+.admin-buttons {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn.eliminar {
+  background-color: #ff4d4d;
+}
+.btn.eliminar:hover {
+  background-color: #ff6666;
+}
+
+.btn.finalizar {
+  background-color: #22c55e;
+}
+.btn.finalizar:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.finalizado {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.activa {
+  color: #facc15;
+  font-weight: 600;
+}
+
+/* Ocultar/desplegar lista de participantes */
+.hidden {
+  display: none;
+}
+
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg,var(--bg),#071019);
+  color:#e6eef6;
+  min-height:100vh;
+}
+.raid-time {
+  color: #ffb100;
+  font-weight: 600;
+  font-size: 1rem;
+}
+.raid-title {
+  color: #f5f5f5;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.raid-datetime {
+  color: #ffb84d;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-left: 0.3rem;
+}
+/* === Corrección de formulario admin === */
+/* === Estilo uniforme para el formulario de crear raid === */
+#create-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center; /* Alinea todo en una fila */
+  margin-bottom: 20px;
+}
+
+#create-form input[type="text"],
+#create-form select,
+#create-form textarea,
+#create-form input[type="datetime-local"] {
+  border-radius: 6px;
+  border: 1px solid #444;
+  background-color: #111;
+  color: #eee;
+  padding: 8px 10px;
+  font-size: 14px;
+  height: 40px; /* altura uniforme */
+  width: 120px; /* antes era automático — cámbialo según quieras */
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+/* Cambia el color del icono del calendario */
+#create-form input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* lo invierte (negro → blanco) */
+  cursor: pointer;
+}
+
+/* Para Firefox */
+#create-form input[type="datetime-local"]::-moz-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+/* El textarea se ve igual y no se puede redimensionar */
+#create-form textarea {
+  width: 280px;
+  height: 40px; /* misma altura que los demás */
+  resize: none; /* bloquea el cambio de tamaño */
+  overflow-y: auto;
+  line-height: 1.4;
+}
+
+/* Botón alineado visualmente con los demás */
+#create-form .btn {
+  height: 40px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Para que los saltos de línea se respeten al mostrar las descripciones */
+.raid-desc,.admin-raid-desc {
+  white-space: pre-wrap;
+  line-height: 1.6;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  padding: 10px;
+}
+
+/* === Tabla de participantes === */
+.public-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 6px; /* separa las filas */
+  margin-top: 6px;
+}
+
+.public-table th,
+.public-table td {
+  text-align: left;
+  padding: 6px 10px;
+  font-size: 14px;
+  color: #ddd;
+}
+
+.public-table th {
+  color: #ffc400;
+  font-weight: 600;
+  border-bottom: 1px solid #333;
+}
+
+.public-table tr {
+  background: #0d1117;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.public-table tr:hover {
+  background: #161b22;
+}
+
+.public-table td:last-child {
+  color: #7cd6ff; /* color suave para la fecha */
+  font-size: 13px;
+  white-space: nowrap;
+}
+.header .nav-btn {
+  position: relative;
+  top: 2px; /* 🔹 lo baja visualmente */
+}
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* espacio entre el icono y el texto */
+}
+
+.guild-icon {
+  width: 40px;       /* 🔹 tamaño del ícono */
+  height: 40px;
+  object-fit: contain;
+}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 28px;
+  border-bottom:1px solid rgba(255,255,255,0.03);
+  background: rgba(10,12,16,0.6);
+}
+.header h1{margin:0;font-size:1.1rem;color:var(--accent)}
+.nav-btn {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(243, 236, 236, 0.678);
+  padding: 4.7px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.25s ease, color 0.25s ease; /* solo transición de color */
+}
+
+/* Al pasar el mouse */
+.nav-btn:hover {
+  background-color: #e6e6e6; /* gris claro */
+  color: #000000; /* texto negro */
+}
+.container{max-width:1100px;margin:28px auto;padding:0 18px}
+
+.raid-card{
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.03);
+  padding:16px;border-radius:12px;margin-bottom:14px;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+}
+.raid-head{display:flex;justify-content:space-between;align-items:center}
+.raid-title{margin:0;font-size:1.05rem;color:var(--accent)}
+.raid-difficulty{background:rgba(255,255,255,0.02);padding:6px 8px;border-radius:8px;font-weight:700;color:var(--accent-2)}
+.small{color:var(--muted);font-size:0.86rem;margin:8px 0}
+.raid-desc{color:#d7e6f7;margin:6px 0 12px}
+
+.btn{background:linear-gradient(90deg,var(--accent-2),var(--accent));border:none;padding:8px 12px;border-radius:8px;color:#071019;font-weight:700;cursor:pointer}
+.btn:hover{opacity:0.95}
+
+.signup-form{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.signup-form input, .signup-form select{
+  padding:8px;border-radius:8px;border:none;background:#0b1220;color:#eaf5ff;min-width:180px;
+}
+
+.hidden{display:none}
+
+/* small public signups (table + counts) */
+.public-signups{margin-top:12px;padding-top:10px;border-top:1px dashed rgba(255,255,255,0.03)}
+.public-signups .counts{display:flex;gap:12px;margin-bottom:8px;color:var(--muted)}
+.public-signups table{width:100%;border-collapse:collapse}
+.public-signups th, .public-signups td{padding:6px 8px;border-bottom:1px solid rgba(255,255,255,0.03);font-size:0.92rem}
+.public-signups th{color:var(--accent);text-align:left}
+
+/*ICONOS*/
+.class-icon-inline{
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  margin-right: 0px;
+
+}
+.role-icon-inline {
+  width: 23px;
+  height: 23px;
+  vertical-align: middle;
+  margin-right: 0px;
+  margin-top:4px;
+ 
+}
+.class-name {
+  margin-left: 4px;
+  color: #dfe6e3;
+  font-size: 14px;
+  vertical-align: middle;
+  text-transform: capitalize;
+}
+
+
+.role-counts {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin: 6px 0;
+  font-weight: 500;
+}
+
+.role-counts img.role-icon {
+  width: 28px;
+  height: 28px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+/* === Botones de acciones (Finalizar / Eliminar) === */
+.admin-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-finalizar,
+.btn-eliminar {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  color: #fff;
+}
+
+/* Botón Finalizar */
+.btn-finalizar {
+  background: linear-gradient(135deg, #3cb371, #2e8b57);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+.btn-finalizar:hover {
+  background: linear-gradient(135deg, #4ed690, #34a36b);
+  transform: translateY(-1px);
+}
+
+/* Botón Eliminar */
+.btn-eliminar {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+.btn-eliminar:hover {
+  background: linear-gradient(135deg, #ff6b5a, #d63b2d);
+  transform: translateY(-1px);
+}
+
+/* Estado visual de raids */
+.status-finalizada {
+  color: #c20707;
+  font-weight: 600;
+  margin-left: 8px;
+}
+.status-activa {
+  color: #04af21;
+  font-weight: 600;
+  margin-left: 8px;
+}
+
+/* Ajuste visual general */
+.raid-card {
+  position: relative;
+  border: 1px solid #222;
+  background: #0f1216;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+/* === Espaciado entre columnas de la tabla de participantes === */
+.admin-signups table {
+  width: 100%;
+  border-collapse: separate; /* permite usar spacing */
+  border-spacing: 0 6px; /* espacio vertical entre filas */
+}
+
+.admin-signups th,
+.admin-signups td {
+  padding: 5px 10px; /* <— aumenta el segundo valor para más espacio horizontal */
+  text-align: left;
+  font-size: 14px;
+}
+
+.admin-signups th {
+  color: #ffd86b;
+  font-weight: 600;
+  border-bottom: 1px solid #333;
+}
+
+.admin-signups tr {
+  background: #101418;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.admin-signups tr:hover {
+  background: #161b22;
+}
+/* === Botón "Participantes" estilo admin === */
+.btn-participantes {
+  background: linear-gradient(135deg, #f5f5f5, #dcdcdc);
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.btn-participantes:hover {
+  background: linear-gradient(135deg, #ffffff, #e4e4e4);
+  transform: translateY(-1px);
+}
+
+/* === Estilo general de la zona de participantes (oculta por defecto) === */
+.admin-signups {
+  display: none; /* oculto inicialmente */
+  margin-top: 10px;
+  background: #0f1318;
+  border: 1px solid #222;
+  border-radius: 10px;
+  padding: 10px 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.25s ease-in-out;
+}
+
+.admin-signups.visible {
+  display: block; /* se muestra cuando tiene la clase visible */
+}
+
+/* Estilo sutil para el contenedor al desplegar */
+.admin-signups table {
+  margin-top: 8px;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 6px;
+}
+
+.admin-signups th {
+  color: #ffd86b;
+  font-weight: 600;
+  border-bottom: 1px solid #333;
+  text-align: left;
+  padding: 6px 10px;
+}
+
+.admin-signups td {
+  padding: 6px 10px;
+  font-size: 14px;
+  color: #ddd;
+}
+
+.admin-signups tr {
+  background: #101418;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.admin-signups tr:hover {
+  background: #161b22;
+}
+
+/* Alinear los tres botones de acción */
+.admin-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+/*Botones*/
+/* Aplica el mismo estilo del botón de admin */
+.btn.toggle-signup,
+#logout.btn,
+button.btn[type="submit"] {
+  background: linear-gradient(135deg, #f5f5f5, #dcdcdc);
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* Efecto hover igual al de admin */
+.btn.toggle-signup:hover,
+#logout.btn:hover,
+button.btn[type="submit"]:hover {
+  background: linear-gradient(135deg, #ffffff, #e4e4e4);
+  transform: translateY(-1px);
+}
