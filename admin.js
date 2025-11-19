@@ -1,11 +1,11 @@
-// admin.js
+
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-/* === CONFIGURA ESTO === */
+
 const SUPABASE_URL = 'https://ssvcasnmvnhmrufueoip.supabase.co'
 const SUPABASE_KEY =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNzdmNhc25tdm5obXJ1ZnVlb2lwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE5MTE1NjYsImV4cCI6MjA3NzQ4NzU2Nn0.hQ6_8mkJf0wtTP9tl_y5cmOAeNxvlhalzsfCFnSLj-Q'
-/* ======================= */
+
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
 
@@ -16,7 +16,7 @@ const createForm = document.getElementById('create-form')
 const adminRaids = document.getElementById('admin-raids')
 const logoutBtn = document.getElementById('logout')
 
-/* Chequear sesión existente */
+
 async function init() {
   const { data } = await supabase.auth.getSession()
   if (data.session) {
@@ -37,7 +37,7 @@ function showPanel() {
   adminPanel.classList.remove('hidden')
 }
 
-/* LOGIN */
+
 loginForm.addEventListener('submit', async (e) => {
   e.preventDefault()
   const email = document.getElementById('email').value
@@ -55,13 +55,13 @@ loginForm.addEventListener('submit', async (e) => {
   loadAdminRaids()
 })
 
-/* LOGOUT */
+
 logoutBtn.addEventListener('click', async () => {
   await supabase.auth.signOut()
   showLogin()
 })
 
-/* Crear raid */
+
 createForm.addEventListener('submit', async (e) => {
   e.preventDefault()
   const title = document.getElementById('title').value
@@ -93,7 +93,7 @@ createForm.addEventListener('submit', async (e) => {
   }
 })
 
-/* === Cargar raids + participantes === */
+
 async function loadAdminRaids() {
   const { data: raids, error: rErr } = await supabase
     .from('raids')
@@ -240,7 +240,7 @@ async function loadAdminRaids() {
       signupsDiv.innerHTML += table
     }
 
-    // 🔘 EVENTOS DE BOTONES
+    //RVENTOS DE BOTONES
     const btnFinalizar = card.querySelector('.btn-finalizar')
     const btnEliminar = card.querySelector('.btn-eliminar')
 
@@ -267,7 +267,7 @@ async function loadAdminRaids() {
   }
 }
 
-/* Realtime updates */
+
 supabase
   .channel('admin-updates')
   .on(
@@ -288,3 +288,4 @@ function escapeHtml(s) {
     .replaceAll('<', '&lt;')
     .replaceAll('>', '&gt;')
 }
+
